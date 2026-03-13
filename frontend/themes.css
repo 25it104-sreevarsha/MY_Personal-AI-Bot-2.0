@@ -223,3 +223,32 @@ background:linear-gradient(
 background-size:300% 300%;
 animation:cyberFlow 15s ease infinite;
 }
+
+.ai{
+background:#eef3ff;
+padding:10px;
+border-radius:8px;
+margin:8px 0;
+max-width:80%;
+animation:fadeIn 0.3s ease;
+}
+
+.user{
+background:#d6f5e8;
+padding:10px;
+border-radius:8px;
+margin:8px 0;
+max-width:80%;
+margin-left:auto;
+}
+
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(5px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
