@@ -237,7 +237,7 @@ input.value=""
 
 const typing=document.createElement("div")
 typing.className="ai"
-typing.innerText="AI is typing..."
+typing.innerText="🤖 AI is typing..."
 chat.appendChild(typing)
 
 try{
