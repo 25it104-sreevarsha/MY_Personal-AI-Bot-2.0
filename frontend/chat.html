@@ -6,7 +6,11 @@
 <title>Personal AI Assistant</title>
 <link rel="stylesheet" href="themes.css">
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
+<script>
+if(!localStorage.getItem("username")){
+window.location="index.html"
+}
+</script>
 <style>
 
 body{
