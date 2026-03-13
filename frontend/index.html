@@ -1,26 +1,127 @@
 <!DOCTYPE html>
+
 <html>
+
 <head>
-<title>Login</title>
-<link rel="stylesheet" href="themes.css">
+<title>Login | Personal AI Assistant</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:Segoe UI,Arial,sans-serif;
+background:linear-gradient(135deg,#74ebd5,#9face6);
+}
+
+.login-card{
+background:white;
+padding:40px;
+width:320px;
+border-radius:14px;
+box-shadow:0 15px 40px rgba(0,0,0,0.25);
+text-align:center;
+}
+
+.title{
+font-size:24px;
+font-weight:600;
+margin-bottom:20px;
+}
+
+.icon{
+font-size:40px;
+margin-bottom:10px;
+}
+
+.input-group{
+margin:12px 0;
+text-align:left;
+}
+
+label{
+font-size:14px;
+color:#444;
+}
+
+input{
+width:100%;
+padding:10px;
+margin-top:5px;
+border-radius:6px;
+border:1px solid #ccc;
+font-size:14px;
+}
+
+button{
+width:100%;
+padding:11px;
+margin-top:18px;
+border:none;
+border-radius:6px;
+background:#4f7cff;
+color:white;
+font-size:15px;
+cursor:pointer;
+transition:0.2s;
+}
+
+button:hover{
+background:#365edc;
+}
+
+#error{
+margin-top:12px;
+color:red;
+font-size:14px;
+text-align:center;
+}
+
+.footer{
+margin-top:15px;
+font-size:12px;
+color:#777;
+}
+
+</style>
+
 </head>
 
-<body class="pastel">
+<body>
 
-<div class="loginBox">
+<div class="login-card">
 
-<h1>AI Assistant Login</h1>
+<div class="icon">🔐</div>
 
-<input id="username" placeholder="Username">
-<input id="password" type="password" placeholder="Password">
+<div class="title">Personal AI Assistant</div>
+
+<div class="input-group">
+<label>👤 Username</label>
+<input id="username" placeholder="Enter username">
+</div>
+
+<div class="input-group">
+<label>🔑 Password</label>
+<input id="password" type="password" placeholder="Enter password">
+</div>
 
 <button onclick="login()">Login</button>
 
-<p id="error"></p>
+<div id="error"></div>
+
+<div class="footer">
+Secure AI Assistant Login
+</div>
 
 </div>
 
 <script src="auth.js"></script>
 
 </body>
+
 </html>
