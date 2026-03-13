@@ -2,29 +2,77 @@ const chat = document.getElementById("chat")
 const input = document.getElementById("userInput")
 const chatList = document.getElementById("chatList")
 
-let chats = JSON.parse(localStorage.getItem("chats")) || {}
-let currentChat = null
-
-function saveChats(){
-localStorage.setItem("chats",JSON.stringify(chats))
+let data = JSON.parse(localStorage.getItem("assistantData")) || {
+folders:{},
+chats:{}
 }
 
-function newChat(){
+let currentChat = null
 
-const name = prompt("Enter chat name")
+function saveData(){
+localStorage.setItem("assistantData",JSON.stringify(data))
+}
+
+/* ---------- FOLDER SYSTEM ---------- */
+
+function newFolder(){
+
+const name = prompt("Folder name")
 
 if(!name) return
 
-const id = "chat_" + Date.now()
+const id = "folder_"+Date.now()
 
-chats[id] = {
+data.folders[id] = {
+title:name,
+chats:[]
+}
+
+saveData()
+renderChatList()
+
+}
+
+/* ---------- CHAT SYSTEM ---------- */
+
+function newChat(){
+
+const name = prompt("Chat name")
+
+if(!name) return
+
+const id = "chat_"+Date.now()
+
+data.chats[id] = {
 title:name,
 messages:[]
 }
 
+const folderIds = Object.keys(data.folders)
+
+if(folderIds.length>0){
+
+const folderChoice = prompt(
+"Enter folder name or leave empty for no folder"
+)
+
+if(folderChoice){
+
+for(let f in data.folders){
+
+if(data.folders[f].title === folderChoice){
+data.folders[f].chats.push(id)
+}
+
+}
+
+}
+
+}
+
 currentChat=id
 
-saveChats()
+saveData()
 renderChatList()
 renderMessages()
 
@@ -34,13 +82,13 @@ function renameChat(){
 
 if(!currentChat) return
 
-const name = prompt("New name")
+const name = prompt("New chat name")
 
 if(!name) return
 
-chats[currentChat].title=name
+data.chats[currentChat].title=name
 
-saveChats()
+saveData()
 renderChatList()
 
 }
@@ -49,13 +97,20 @@ function deleteCurrentChat(){
 
 if(!currentChat) return
 
-delete chats[currentChat]
+delete data.chats[currentChat]
+
+for(let f in data.folders){
+
+data.folders[f].chats =
+data.folders[f].chats.filter(c=>c!==currentChat)
+
+}
 
 currentChat=null
 
 chat.innerHTML=""
 
-saveChats()
+saveData()
 renderChatList()
 
 }
@@ -64,22 +119,57 @@ function clearChat(){
 
 if(!currentChat) return
 
-chats[currentChat].messages=[]
+data.chats[currentChat].messages=[]
 
-saveChats()
+saveData()
 renderMessages()
 
 }
+
+/* ---------- CHAT LIST UI ---------- */
 
 function renderChatList(){
 
 chatList.innerHTML=""
 
-for(let id in chats){
+for(let f in data.folders){
+
+const folderDiv=document.createElement("div")
+
+folderDiv.innerHTML="<b>📂 "+data.folders[f].title+"</b>"
+
+chatList.appendChild(folderDiv)
+
+data.folders[f].chats.forEach(id=>{
 
 const btn=document.createElement("button")
 
-btn.innerText=chats[id].title
+btn.innerText=data.chats[id].title
+
+btn.onclick=()=>{
+currentChat=id
+renderMessages()
+}
+
+chatList.appendChild(btn)
+
+})
+
+}
+
+for(let id in data.chats){
+
+let inside=false
+
+for(let f in data.folders){
+if(data.folders[f].chats.includes(id)) inside=true
+}
+
+if(!inside){
+
+const btn=document.createElement("button")
+
+btn.innerText=data.chats[id].title
 
 btn.onclick=()=>{
 currentChat=id
@@ -92,13 +182,17 @@ chatList.appendChild(btn)
 
 }
 
+}
+
+/* ---------- MESSAGES ---------- */
+
 function renderMessages(){
 
 chat.innerHTML=""
 
 if(!currentChat) return
 
-chats[currentChat].messages.forEach((msg,index)=>{
+data.chats[currentChat].messages.forEach((msg,index)=>{
 
 chat.innerHTML+=`
 <div class="${msg.role}">
@@ -115,12 +209,14 @@ chat.scrollTop=chat.scrollHeight
 
 function deleteMessage(index){
 
-chats[currentChat].messages.splice(index,1)
+data.chats[currentChat].messages.splice(index,1)
 
-saveChats()
+saveData()
 renderMessages()
 
 }
+
+/* ---------- AI CHAT ---------- */
 
 async function sendMessage(){
 
@@ -130,7 +226,7 @@ const userText=input.value
 
 if(userText.trim()==="") return
 
-chats[currentChat].messages.push({
+data.chats[currentChat].messages.push({
 role:"user",
 text:userText
 })
@@ -144,6 +240,8 @@ typing.className="ai"
 typing.innerText="AI is typing..."
 chat.appendChild(typing)
 
+try{
+
 const response=await fetch("http://localhost:3000/ask",{
 
 method:"POST",
@@ -156,18 +254,30 @@ body:JSON.stringify({message:userText})
 
 })
 
-const data=await response.json()
+const result=await response.json()
 
 typing.remove()
 
-chats[currentChat].messages.push({
+data.chats[currentChat].messages.push({
 role:"ai",
-text:data.content
+text:result.content
 })
 
-saveChats()
+saveData()
+renderMessages()
+
+}catch{
+
+typing.remove()
+
+data.chats[currentChat].messages.push({
+role:"ai",
+text:"AI connection failed"
+})
 
 renderMessages()
+
+}
 
 }
 
@@ -176,3 +286,22 @@ if(e.key==="Enter") sendMessage()
 })
 
 renderChatList()
+
+/* ---------- THEME ---------- */
+
+function changeTheme(theme){
+
+document.body.className=""
+document.body.classList.add(theme)
+
+localStorage.setItem("theme",theme)
+
+}
+
+const savedTheme = localStorage.getItem("theme")
+
+if(savedTheme){
+document.body.classList.add(savedTheme)
+}else{
+document.body.classList.add("ocean")
+}

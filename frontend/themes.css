@@ -1,12 +1,225 @@
-.theme-pastel{
-background:linear-gradient(135deg,#ffd6e8,#e6d9ff,#d7f3ff);
+body{
+margin:0;
+font-family:sans-serif;
+transition:background 0.4s,color 0.4s;
 }
-.theme-glass{
-background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+
+/* ---------- OCEAN THEME (DEFAULT) ---------- */
+
+.ocean{
+background:linear-gradient(135deg,#d7f3ff,#e8f0ff);
+color:#222;
+}
+
+/* ---------- CYBER NIGHT THEME ---------- */
+
+.cyber{
+background:linear-gradient(135deg,#0a0a0a,#1a1a1a,#000000);
 color:white;
-backdrop-filter:blur(10px);
 }
-.theme-neon{
-background:black;
-color:#00f7ff;
+
+.cyber .header{
+background:#111;
+color:#00bfff;
+border-bottom:1px solid #00bfff;
+}
+
+.cyber .sidebar{
+background:linear-gradient(180deg,#000000,#111111);
+}
+
+.cyber .ai{
+background:#1a1a1a;
+color:white;
+border:1px solid #00bfff55;
+}
+
+.cyber #userInput{
+background:#222;
+color:white;
+}
+
+.cyber .input-area{
+background:#111;
+}
+
+/* ---------- CHERRY BLOSSOM THEME ---------- */
+
+.cherry{
+background:linear-gradient(135deg,#ffe0f0,#ffd6e7,#ffc4dc);
+color:#4a0033;
+}
+
+.cherry .sidebar{
+background:linear-gradient(180deg,#ff5ca8,#ff2f7d);
+}
+
+.cherry .ai{
+background:white;
+border:1px solid #ff5ca855;
+}
+
+.cherry #userInput{
+background:#fff0f6;
+}
+
+.cherry .input-area{
+background:#ffd6e7;
+}
+
+/* ---------- GENERAL UI ---------- */
+
+.sidebar{
+width:250px;
+color:white;
+padding:20px;
+display:flex;
+flex-direction:column;
+}
+
+.sidebar button{
+margin:6px 0;
+padding:10px;
+border:none;
+border-radius:10px;
+background:rgba(255,255,255,0.2);
+color:white;
+cursor:pointer;
+}
+
+.header{
+padding:15px;
+background:white;
+border-bottom:1px solid #ddd;
+font-weight:600;
+display:flex;
+justify-content:space-between;
+}
+
+#chat{
+flex:1;
+padding:25px;
+overflow-y:auto;
+background:transparent;
+}
+
+.input-area{
+display:flex;
+padding:15px;
+background:white;
+border-top:1px solid #ddd;
+}
+
+#userInput{
+flex:1;
+padding:14px;
+border-radius:25px;
+border:none;
+background:#f0f6ff;
+outline:none;
+}
+
+.send{
+margin-left:10px;
+padding:12px 20px;
+border:none;
+border-radius:25px;
+background:linear-gradient(135deg,#00c6ff,#0072ff);
+color:white;
+cursor:pointer;
+}
+
+.voice{
+margin-left:10px;
+padding:12px;
+border:none;
+border-radius:25px;
+background:#eee;
+cursor:pointer;
+}
+
+.user{
+background:linear-gradient(135deg,#00c6ff,#0072ff);
+color:white;
+padding:12px;
+border-radius:18px 18px 4px 18px;
+margin:10px;
+max-width:60%;
+margin-left:auto;
+}
+
+.ai{
+background:white;
+padding:12px;
+border-radius:18px 18px 18px 4px;
+margin:10px;
+max-width:60%;
+box-shadow:0 3px 8px rgba(0,0,0,0.08);
+}
+
+/* CHAT BACKGROUND PER THEME */
+
+.ocean #chat{
+background:linear-gradient(120deg,#d4fcff,#e6f0ff,#f0faff);
+}
+
+.cyber #chat{
+background:linear-gradient(120deg,#000000,#0a0a0a,#111111);
+}
+
+.cherry #chat{
+background:linear-gradient(120deg,#ffe0f0,#ffd6e7,#ffc4dc);
+}
+
+/* ---------------- CYBER NIGHT GLOW EFFECTS ---------------- */
+
+.cyber .sidebar button{
+border:1px solid #00bfff55;
+box-shadow:0 0 8px #00bfff33;
+transition:all 0.2s;
+}
+
+.cyber .sidebar button:hover{
+box-shadow:0 0 12px #00bfff;
+transform:scale(1.03);
+}
+
+.cyber .user{
+box-shadow:0 0 10px #00bfff88;
+}
+
+.cyber .ai{
+box-shadow:0 0 10px #00bfff44;
+}
+
+.cyber .send{
+box-shadow:0 0 10px #00bfff88;
+}
+
+.cyber .voice{
+box-shadow:0 0 8px #00bfff66;
+}
+
+.cyber .header{
+text-shadow:0 0 6px #00bfff;
+}
+
+/* CYBER BACKGROUND ANIMATION */
+
+@keyframes cyberFlow{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.cyber #chat{
+background:linear-gradient(
+120deg,
+#000000,
+#050505,
+#0a0a0a,
+#111111
+);
+background-size:300% 300%;
+animation:cyberFlow 15s ease infinite;
 }

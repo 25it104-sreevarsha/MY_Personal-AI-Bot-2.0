@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Personal AI Assistant</title>
 
+<head>
+
+<title>Personal AI Assistant</title>
+<link rel="stylesheet" href="themes.css">
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <style>
@@ -14,8 +16,6 @@ display:flex;
 height:100vh;
 background:linear-gradient(135deg,#d7f3ff,#e8f0ff);
 }
-
-/* SIDEBAR */
 
 .sidebar{
 width:250px;
@@ -36,14 +36,10 @@ color:white;
 cursor:pointer;
 }
 
-/* CHAT LIST */
-
 #chatList button{
 width:100%;
 text-align:left;
 }
-
-/* MAIN */
 
 .main{
 flex:1;
@@ -51,16 +47,14 @@ display:flex;
 flex-direction:column;
 }
 
-/* HEADER */
-
 .header{
 padding:15px;
 background:white;
 border-bottom:1px solid #ddd;
 font-weight:600;
+display:flex;
+justify-content:space-between;
 }
-
-/* CHAT AREA */
 
 #chat{
 flex:1;
@@ -85,8 +79,6 @@ animation:gradientMove 12s ease infinite;
 100%{background-position:0% 50%;}
 }
 
-/* MESSAGE BUBBLES */
-
 .user{
 background:linear-gradient(135deg,#00c6ff,#0072ff);
 color:white;
@@ -106,16 +98,12 @@ max-width:60%;
 box-shadow:0 3px 8px rgba(0,0,0,0.08);
 }
 
-/* DELETE BUTTON */
-
 .deleteMsg{
 margin-left:10px;
 border:none;
 background:transparent;
 cursor:pointer;
 }
-
-/* INPUT */
 
 .input-area{
 display:flex;
@@ -143,6 +131,15 @@ color:white;
 cursor:pointer;
 }
 
+.voice{
+margin-left:10px;
+padding:12px;
+border:none;
+border-radius:25px;
+background:#eee;
+cursor:pointer;
+}
+
 </style>
 
 </head>
@@ -155,6 +152,8 @@ cursor:pointer;
 
 <button onclick="newChat()">+ New Chat</button>
 
+<button onclick="newFolder()">📂 New Folder</button>
+
 <div id="chatList"></div>
 
 <hr>
@@ -163,22 +162,43 @@ cursor:pointer;
 <button onclick="deleteCurrentChat()">Delete Chat</button>
 <button onclick="clearChat()">Clear Messages</button>
 
+<hr>
+
+<button onclick="logout()">Logout</button>
+
 </div>
 
 <div class="main">
 
-<div class="header">Personal AI Assistant</div>
+<div class="header">
+
+<span>Personal AI Assistant</span>
+
+<select onchange="changeTheme(this.value)">
+<option value="ocean">Ocean</option>
+<option value="cyber">Cyber Night</option>
+<option value="cherry">Cherry Blossom</option>
+</select>
+
+</div>
 
 <div id="chat"></div>
 
 <div class="input-area">
+
 <input id="userInput" placeholder="Ask anything...">
+
+<button class="voice" onclick="startVoice()">🎤</button>
+
 <button class="send" onclick="sendMessage()">Send</button>
+
 </div>
 
 </div>
 
 <script src="script.js"></script>
+<script src="voice.js"></script>
+<script src="auth.js"></script>
 
 </body>
 </html>

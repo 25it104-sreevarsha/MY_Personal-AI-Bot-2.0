@@ -1,4 +1,3 @@
-messages:[
-{role:"system",content:userMemory},
-{role:"user",content:userMessage}
-]
+{
+  "name": "siya"
+}
