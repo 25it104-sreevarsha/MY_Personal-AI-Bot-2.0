@@ -258,13 +258,38 @@ const result=await response.json()
 
 typing.remove()
 
+const aiText = result.content
+
+let index = 0
+let typingText = ""
+
+const typingBubble = document.createElement("div")
+typingBubble.className = "ai"
+chat.appendChild(typingBubble)
+
+const typingInterval = setInterval(()=>{
+
+typingText += aiText[index]
+typingBubble.innerHTML = marked.parse(typingText)
+
+index++
+
+chat.scrollTop = chat.scrollHeight
+
+if(index >= aiText.length){
+
+clearInterval(typingInterval)
+
 data.chats[currentChat].messages.push({
 role:"ai",
-text:result.content
+text:aiText
 })
 
 saveData()
-renderMessages()
+
+}
+
+},20)
 
 }catch{
 
