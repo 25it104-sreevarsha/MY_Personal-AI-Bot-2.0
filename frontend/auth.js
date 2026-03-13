@@ -3,7 +3,7 @@ async function login(){
 const username = document.getElementById("username").value
 const password = document.getElementById("password").value
 
-const res = await fetch("http://localhost:3000/login",{
+const res = await fetch("https://https://my-personal-ai-bot-2-0.onrender.com/login",{
 
 method:"POST",
 
