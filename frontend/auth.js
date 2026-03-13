@@ -24,7 +24,7 @@ if(data.success){
 
 localStorage.setItem("username",username)
 
-window.location="index.html"
+window.location="chat.html"
 
 }else{
 
