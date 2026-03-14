@@ -242,7 +242,7 @@ chat.appendChild(typing)
 
 try{
 
-const response=await fetch("https://https://my-personal-ai-bot-2-0.onrender.com/ask",{
+const response=await fetch("https://my-personal-ai-bot-2-0.onrender.com/ask",{
 
 method:"POST",
 
