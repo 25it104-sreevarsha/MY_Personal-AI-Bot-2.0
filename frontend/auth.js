@@ -1,39 +1,34 @@
-async function login(){
+// Backend URL
+const backendUrl = "https://my-personal-ai-bot-2-0.onrender.com";
 
-const username = document.getElementById("username").value
-const password = document.getElementById("password").value
+// LOGIN FUNCTION
+async function login() {
 
-const res = await fetch("https://my-personal-ai-bot-2-0.onrender.com/",{
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
 
-method:"POST",
+  try {
 
-headers:{
-"Content-Type":"application/json"
-},
+    const res = await fetch(`${backendUrl}/login`, {
 
-body:JSON.stringify({
-username,
-password
-})
+      method: "POST",
 
-})
+      headers: {
+        "Content-Type": "application/json"
+      },
 
-const data = await res.json()
+      body: JSON.stringify({
+        username: username,
+        password: password
+      })
 
-if(data.success){
+    });
 
-localStorage.setItem("username",username)
+    const data = await res.json();
 
-window.location="chat.html"
+    if (data.success) {
 
-}else{
+      localStorage.setItem("username", username);
 
-document.getElementById("error").innerText="Invalid login"
-
-}
-
-}
-function logout(){
-localStorage.removeItem("username")
-window.location="index.html"
-}
+      // go to assistant page
+      window.location = "
