@@ -1,3 +1,6 @@
+{username: admin
+password: 123}
+
 # 🤖 Personal AI Assistant
 
 A full-stack AI assistant web application that allows users to chat with an AI, store conversations, organize chats into folders, and maintain persistent memory about the user.
